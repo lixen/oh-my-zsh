@@ -1,0 +1,52 @@
+#compdef rebar3
+
+local curcontext=$curcontext state ret=1
+typeset -ga _rebar3_global_opts
+
+_rebar3_global_opts=(
+  '(--help -h)'{--help,-h}'[Show the program options]'
+  '(--version -v)'{--version,-v}'[Show version information.]'
+
+)
+
+_rebar3 () {
+  _arguments -C $_rebar3_global_opts \
+    '*::command and variable:->cmd_and_var' \
+    && return
+
+  case $state in
+    cmd_and_var)
+      _values -S = 'variables' \
+        'as[Higher order provider for running multiple tasks in a sequence as a certain profiles]' \
+        'auto[Automatically run compile task on change of source file and reload modules]' \
+        'compile[Compile apps .app.src and .erl files]' \
+        'cover[Perform coverage analysis]' \
+        'ct[Run Common Tests]' \
+        'deps[List dependencies]' \
+        'dialyzer[Run the Dialyzer analyzer on the project]' \
+        'do[Higher order provider for running multiple tasks in a sequence]' \
+        'edoc[Generate documentation using edoc]' \
+        'escriptize[Generate escript archive]' \
+        'eunit[Run EUnit Tests]' \
+        'get-deps[Fetch dependencies]' \
+        'help[Display a list of tasks or help for a given task or subtask]' \
+        'new[Create new project from templates]' \
+        'path[Print paths to build dirs in current profile]' \
+        'pkgs[List available packages]' \
+        'release[Build release of project]' \
+        'relup[Create relup of releases]' \
+        'report[Provide a crash report to be sent to the rebar3 issues page]' \
+        'shell[Run shell with project apps and deps in path]' \
+        'tar[Tar archive of release built of project]' \
+        'tree[Print dependency tree]' \
+        'unlock[Unlock dependencies]' \
+        'update[Update package index]' \
+        'upgrade[Upgrade dependencies]' \
+        'version[Print version for rebar and current Erlang]' \
+        'xref[Run cross reference analysis]' \
+        && ret=0
+      ;;
+  esac
+}
+
+_rebar3
